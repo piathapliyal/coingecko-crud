@@ -11,7 +11,7 @@ from .serializers import ItemSerializer
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all().order_by('-created_at')  
     serializer_class = ItemSerializer
-    # todo: maybe add permissions later
+   
 
 
 @api_view(['GET'])

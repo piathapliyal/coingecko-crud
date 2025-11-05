@@ -11,33 +11,22 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
-# Load environment variables from .env (if present)
 
-
-# ---------------------------
-# BASE DIR
-# ---------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
-# ---------------------------
-# SECURITY
-# ---------------------------
-# Use environment variable for secret key. Fallback kept for local dev only.
+
 SECRET_KEY = os.getenv(
     "SECRET_KEY",
-    "django-insecure-fallback-secret-please-change"  # fallback only
+    "django-insecure-fallback-secret-please-change" 
 )
 
-# DEBUG should be '0' or '1' in .env, default to True for local dev
+
 DEBUG = os.getenv("DEBUG", "1") == "1"
 
-# ALLOWED_HOSTS can be a comma-separated list in .env, default to all for quick dev
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
-# ---------------------------
-# INSTALLED APPS
-# ---------------------------
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -52,9 +41,7 @@ INSTALLED_APPS = [
     "core",
 ]
 
-# ---------------------------
-# MIDDLEWARE
-# ---------------------------
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -66,16 +53,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# ---------------------------
-# URLS / TEMPLATES / WSGI
-# ---------------------------
 ROOT_URLCONF = "proj.urls"
 WSGI_APPLICATION = "proj.wsgi.application"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],  # put your templates here
+        "DIRS": [BASE_DIR / "templates"],  
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -88,14 +72,10 @@ TEMPLATES = [
     },
 ]
 
-# ---------------------------
-# DATABASE (Supabase / Postgres or sqlite fallback)
-# ---------------------------
-# Put your Supabase connection string in DATABASE_URL in .env, e.g.:
-# postgresql://postgres:YOUR_PASSWORD@db.xxxxx.supabase.co:5432/postgres?sslmode=require
+
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    f"sqlite:///{BASE_DIR / 'db.sqlite3'}"  # fallback for local dev
+    f"sqlite:///{BASE_DIR / 'db.sqlite3'}"  
 )
 
 DATABASES = {
@@ -106,9 +86,6 @@ DATABASES = {
     )
 }
 
-# ---------------------------
-# AUTH PASSWORD VALIDATORS
-# ---------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -116,17 +93,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# ---------------------------
-# INTERNATIONALIZATION
-# ---------------------------
+
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = os.getenv("TIME_ZONE", "Asia/Kolkata")
 USE_I18N = True
 USE_TZ = True
 
-# ---------------------------
-# STATIC & MEDIA
-# ---------------------------
+
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
@@ -134,28 +107,19 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# ---------------------------
-# DEFAULT AUTO FIELD
-# ---------------------------
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# ---------------------------
-# REST FRAMEWORK (simple defaults)
-# ---------------------------
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ]
 }
 
-# ---------------------------
-# CORS (for local development)
-# ---------------------------
+
 CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "True") == "True"
 
-# ---------------------------
-# Optional: print a small db-info in logs when DEBUG to help verify connection
-# ---------------------------
 if DEBUG:
     try:
         parsed = dj_database_url.parse(DATABASE_URL)
