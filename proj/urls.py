@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("core.urls")),
-    path("", TemplateView.as_view(template_name="welcome.html"), name="welcome"),
-    path("dashboard/", TemplateView.as_view(template_name="dashboard.html"), name="dashboard"),
+    path("", RedirectView.as_view(url="/api/coins/", permanent=False)),
 ]

@@ -2,16 +2,15 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import requests
-import json   
+import json  
 
-from .models import Item
-from .serializers import ItemSerializer
+from .models import Coin
+from .serializers import CoinSerializer
 
+class CoinViewSet(viewsets.ModelViewSet):
+    queryset = Coin.objects.all().order_by('-id')
+    serializer_class = CoinSerializer
 
-class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all().order_by('-created_at')  
-    serializer_class = ItemSerializer
-   
 
 
 @api_view(['GET'])

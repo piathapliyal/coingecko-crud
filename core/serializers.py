@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Item
+from .models import Coin
 
-class ItemSerializer(serializers.ModelSerializer):
+class CoinSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Item
-        fields = '__all__'
+        model = Coin
+        fields = "__all__"
